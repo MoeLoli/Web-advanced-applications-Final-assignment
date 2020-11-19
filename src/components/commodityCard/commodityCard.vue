@@ -2,7 +2,7 @@
  * @Author: Jin
  * @Date: 2020-11-19 17:05:15
  * @LastEditors: Jin
- * @LastEditTime: 2020-11-19 17:36:23
+ * @LastEditTime: 2020-11-19 18:43:58
  * @FilePath: /final-assignment/src/components/commodityCard/commodityCard.vue
 -->
 <template>
@@ -25,7 +25,7 @@
                     <div>
                         <span class="font-italic">by </span>
                         <span class="font-weight-bold">
-                            {{ author }}
+                            {{ vendor }}
                         </span>
                         <span>in </span>
                         <span class="font-weight-bold">

@@ -2,7 +2,7 @@
  * @Author: Jin
  * @Date: 2020-11-19 15:55:47
  * @LastEditors: Jin
- * @LastEditTime: 2020-11-19 17:49:45
+ * @LastEditTime: 2020-11-19 19:07:08
  * @FilePath: /final-assignment/src/App.vue
 -->
 <template>
@@ -69,7 +69,6 @@ export default {
     }),
 
     mounted: function() {
-        console.log(this.$vuetify);
     }
 };
 </script>

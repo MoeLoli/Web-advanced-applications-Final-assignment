@@ -12,7 +12,7 @@ export default {
             type: String,
             default: "Test"
         },
-        author: {
+        vendor: {
             type: String,
             default: "Jin"
         },
