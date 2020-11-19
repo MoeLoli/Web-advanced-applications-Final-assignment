@@ -1,0 +1,23 @@
+body {
+    background-color: #f5f6f7 !important;
+    color: #333b4f !important;
+    line-height: 1.5 !important;
+}
+
+a {
+    text-decoration: none !important;
+}
+
+.v-application {
+    font-family: Quicksand, sans-serif !important;
+}
+
+.theme--light.v-application {
+    background: #f2f5f8 !important;
+    color: rgba(0, 0, 0, 0.87) !important;
+}
+
+.theme--dark.v-application {
+    background: #111b27 !important;
+    color: #edf0f2 !important;
+}
