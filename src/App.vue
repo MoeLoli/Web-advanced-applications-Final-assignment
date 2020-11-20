@@ -2,7 +2,7 @@
  * @Author: Jin
  * @Date: 2020-11-19 15:55:47
  * @LastEditors: Jin
- * @LastEditTime: 2020-11-19 19:07:08
+ * @LastEditTime: 2020-11-20 22:51:49
  * @FilePath: /final-assignment/src/App.vue
 -->
 <template>
@@ -39,7 +39,69 @@
 
                     <div
                         class="d-flex fill-height justify-space-between py-2 text-body-2 text-lg-body-1"
-                    ></div>
+                    >
+                        <router-link
+                            :to="{ name: 'Home' }"
+                            class="d-flex align-center"
+                            ><span
+                                class="font-weight-bold text-uppercase textbase--text"
+                                >Home</span
+                            ></router-link
+                        >
+
+                        <router-link
+                            :to="{ name: 'Licenses' }"
+                            class="d-flex align-center"
+                            ><span
+                                class="font-weight-bold text-uppercase textbase--text"
+                                >Licenses</span
+                            ></router-link
+                        >
+                        <a
+                            href="#"
+                            data-v-7ba5bd90
+                            class="d-flex align-center"
+                            aria-current="page"
+                            ><span
+                                data-v-7ba5bd90
+                                class="font-weight-bold text-uppercase textbase--text"
+                                >Test</span
+                            ></a
+                        >
+                        <a
+                            href="#"
+                            data-v-7ba5bd90
+                            class="d-flex align-center"
+                            aria-current="page"
+                            ><span
+                                data-v-7ba5bd90
+                                class="font-weight-bold text-uppercase textbase--text"
+                                >Test</span
+                            ></a
+                        >
+                        <a
+                            href="#"
+                            data-v-7ba5bd90
+                            class="d-flex align-center"
+                            aria-current="page"
+                            ><span
+                                data-v-7ba5bd90
+                                class="font-weight-bold text-uppercase textbase--text"
+                                >Test</span
+                            ></a
+                        >
+                        <a
+                            href="#"
+                            data-v-7ba5bd90
+                            class="d-flex align-center"
+                            aria-current="page"
+                            ><span
+                                data-v-7ba5bd90
+                                class="font-weight-bold text-uppercase textbase--text"
+                                >Test</span
+                            ></a
+                        >
+                    </div>
                 </v-container>
             </template>
         </v-app-bar>
@@ -52,29 +114,65 @@
             <div class="d-flex align-center justify-space-between py-4 px-4">
                 <span class="text-h6">Shopping Cart</span>
 
-                <v-btn icon depressed>
+                <v-btn icon depressed @click="drawer = !drawer">
                     <v-icon>mdi-close</v-icon>
                 </v-btn>
             </div>
         </v-navigation-drawer>
+
+        <v-snackbar v-model="alertShowL" color="success" bottom timeout="5000">
+            {{ alertMsg }}
+        </v-snackbar>
+
+        <v-footer class="py-6 transparent">
+            <div class="overline mx-auto">
+                © Copyright {{ new Date().getFullYear() }} 23333 | Made With
+                23333
+            </div>
+        </v-footer>
     </v-app>
 </template>
 
 <script>
 export default {
     name: "App",
-
     data: () => ({
-        drawer: null
+        drawer: null,
+        alertShowL: false
     }),
-
-    mounted: function() {
+    computed: {
+        alertShow: function() {
+            return this.$store.state.alert.show;
+        },
+        alertMsg: function() {
+            return this.$store.state.alert.msg;
+        }
+    },
+    watch: {
+        alertShow: function(newVal) {
+            this.alertShowL = newVal;
+        },
+        alertShowL: function(newVal) {
+            if (!newVal) {
+                this.$store.actions.hideAlert();
+            }
+        }
     }
 };
 </script>
 
 <style scoped>
-.v-application a {
+.v-application.theme--dark .textbase--text {
+    color: #edf0f2;
+    caret-color: #edf0f2;
+}
+
+.v-application.theme--light .textbase--text {
+    color: #252525;
+    caret-color: #252525;
+}
+
+.router-link-exact-active span {
     color: #0096c7 !important;
 }
 
