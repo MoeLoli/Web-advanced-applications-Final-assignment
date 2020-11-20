@@ -2,7 +2,7 @@
  * @Author: Jin
  * @Date: 2020-11-19 15:55:47
  * @LastEditors: Jin
- * @LastEditTime: 2020-11-19 17:38:32
+ * @LastEditTime: 2020-11-20 20:40:59
  * @FilePath: /final-assignment/src/views/home/Home.vue
 -->
 <template>
@@ -29,11 +29,7 @@
                 Featured products
             </div>
             <v-row>
-                <commodityCardComponent />
-                <commodityCardComponent />
-                <commodityCardComponent />
-                <commodityCardComponent />
-                <commodityCardComponent />
+                <commodityCardComponent v-for="(product, index) in products" :key="index" :config="product" />
             </v-row>
         </section>
     </div>

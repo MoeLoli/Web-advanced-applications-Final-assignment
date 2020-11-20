@@ -2,24 +2,29 @@
  * @Author: Jin
  * @Date: 2020-11-19 17:05:15
  * @LastEditors: Jin
- * @LastEditTime: 2020-11-19 18:43:58
+ * @LastEditTime: 2020-11-20 22:05:24
  * @FilePath: /final-assignment/src/components/commodityCard/commodityCard.vue
 -->
 <template>
     <v-col cols="12" sm="6" lg="4" xl="3">
         <div class="position-relative">
             <v-card>
-                <v-img
-                    height="240"
-                    src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
+                <router-link
+                    :to="{ name: 'Detail', params: { name: name } }"
+                    class="d-flex align-center"
                 >
-                </v-img>
-
-                <v-card-title class="pb-0">
-                    <div class="text-truncate">
-                        {{ name }}
-                    </div>
-                </v-card-title>
+                    <v-img height="240" :src="imgUrl"> </v-img>
+                </router-link>
+                <router-link
+                    :to="{ name: 'Detail', params: { name: name } }"
+                    class="d-flex align-center"
+                >
+                    <v-card-title class="pb-0">
+                        <div class="text-truncate">
+                            {{ name }}
+                        </div>
+                    </v-card-title>
+                </router-link>
 
                 <v-card-text class="pb-1">
                     <div>
@@ -36,7 +41,13 @@
 
                 <v-card-actions>
                     <div class="product-price d-flex pl-1">
-                        <div class="d-flex align-start">
+                        <span
+                            v-if="String(price).toLocaleLowerCase() === 'free'"
+                            class="text-h6"
+                            >Free</span
+                        >
+
+                        <div v-else class="d-flex align-start">
                             <span
                                 class="product-price body-2"
                                 style="margin-top: 5px; margin-right: 1px;"
@@ -61,6 +72,7 @@
                         height="44"
                         width="44"
                         min-width="unset"
+                        @click="addCart"
                     >
                         <v-icon>mdi-cart-plus</v-icon>
                     </v-btn>
@@ -81,5 +93,10 @@ export default {
 <style scoped>
 .v-application .product-price {
     font-family: Roboto, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif !important;
+}
+
+.text-truncate {
+    color: #edf0f2!important;
+    caret-color: #edf0f2!important;
 }
 </style>
