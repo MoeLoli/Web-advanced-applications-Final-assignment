@@ -2,7 +2,7 @@
  * @Author: Jin
  * @Date: 2020-11-19 15:55:47
  * @LastEditors: Jin
- * @LastEditTime: 2020-11-19 16:28:02
+ * @LastEditTime: 2020-11-21 18:25:11
  * @FilePath: /final-assignment/src/router/index.js
  */
 import Vue from "vue";
@@ -12,7 +12,7 @@ import routes from "./routes";
 Vue.use(VueRouter);
 
 const router = new VueRouter({
-    mode: "history",
+    mode: "hash",
     base: process.env.BASE_URL,
     routes,
     scrollBehavior: function(to, from, savedPosition) {

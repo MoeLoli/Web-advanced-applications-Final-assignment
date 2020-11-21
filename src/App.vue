@@ -2,7 +2,7 @@
  * @Author: Jin
  * @Date: 2020-11-19 15:55:47
  * @LastEditors: Jin
- * @LastEditTime: 2020-11-21 18:14:40
+ * @LastEditTime: 2020-11-21 18:26:53
  * @FilePath: /final-assignment/src/App.vue
 -->
 <template>
@@ -28,7 +28,7 @@
 
                 <v-spacer></v-spacer>
 
-                <v-badge color="red" :content="cart.length" overlap bordered>
+                <v-badge color="red" :content="cart.length == 0 ? '0' : cart.length" overlap bordered>
                     <v-btn icon @click="drawer = true">
                         <v-icon>mdi-cart-outline</v-icon>
                     </v-btn>
