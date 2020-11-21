@@ -2,7 +2,7 @@
  * @Author: Jin
  * @Date: 2020-11-19 15:55:47
  * @LastEditors: Jin
- * @LastEditTime: 2020-11-20 22:51:49
+ * @LastEditTime: 2020-11-21 18:14:40
  * @FilePath: /final-assignment/src/App.vue
 -->
 <template>
@@ -28,9 +28,11 @@
 
                 <v-spacer></v-spacer>
 
-                <v-btn icon @click="drawer = true">
-                    <v-icon>mdi-cart-outline</v-icon>
-                </v-btn>
+                <v-badge color="red" :content="cart.length" overlap bordered>
+                    <v-btn icon @click="drawer = true">
+                        <v-icon>mdi-cart-outline</v-icon>
+                    </v-btn>
+                </v-badge>
             </v-container>
 
             <template v-slot:extension>
@@ -118,6 +120,105 @@
                     <v-icon>mdi-close</v-icon>
                 </v-btn>
             </div>
+            <v-divider></v-divider>
+            <v-list two-line v-if="cart.length === 0">
+                <div class="ma-8">
+                    <v-list-item class="mb-8">
+                        <v-list-item-title class="text-center body-2"
+                            >Shopping Cart Empty</v-list-item-title
+                        >
+                    </v-list-item>
+                    <v-btn
+                        color="accent"
+                        contained
+                        block
+                        @click="drawer = !drawer"
+                    >
+                        Continue Shopping
+                    </v-btn>
+                </div>
+            </v-list>
+            <v-list two-line v-if="cart.length != 0">
+                <v-list-item v-for="(item, index) in cart" :key="index">
+                    <v-list-item-avatar>
+                        <v-img :src="item.imgUrl"></v-img>
+                    </v-list-item-avatar>
+
+                    <div class="min-w-0 flex-grow-1">
+                        <v-list-item-title>{{ item.name }}</v-list-item-title>
+                        <v-list-item-subtitle
+                            class="red--text text--darken-4 font-weight-black text-body-2 mb-1"
+                            >{{ item.price }}</v-list-item-subtitle
+                        >
+                        <v-list-item-subtitle
+                            class="grey--text text--darken-1 overline"
+                            >{{ "Commercial Use" }}</v-list-item-subtitle
+                        >
+                    </div>
+
+                    <v-spacer></v-spacer>
+
+                    <v-list-item-action>
+                        <v-btn
+                            rounded
+                            small
+                            text
+                            icon
+                            @click="$store.actions.removeCart(index)"
+                        >
+                            <v-icon>mdi-close-circle</v-icon>
+                        </v-btn>
+                    </v-list-item-action>
+                </v-list-item>
+            </v-list>
+
+            <v-divider v-if="cart.length != 0"></v-divider>
+
+            <v-row class="px-6 pt-4 align-center" v-if="cart.length != 0">
+                <v-col cols="12" class="pb-0 text-right">
+                    <v-responsive
+                        class="ml-auto overflow-visible"
+                        style="max-width: 230px;"
+                    >
+                        <v-text-field
+                            dense
+                            solo
+                            label="Discount Code"
+                        ></v-text-field>
+                    </v-responsive>
+                </v-col>
+
+                <v-col
+                    cols="12"
+                    class="text-right pt-0 d-flex align-center justify-end "
+                >
+                    <span class="text-body-2 grey--text text--darken-1">
+                        Subtotal: ({{
+                            cart.length + ` item${cart.length > 1 ? "s" : ""}`
+                        }}):
+                    </span>
+
+                    <v-responsive
+                        class="text-body-3 red--text headline text--darken-4 font-weight-medium shrink d-inline-flex justify-end"
+                        tag="span"
+                        style="min-width: 100px;"
+                    >
+                        ${{ totalPrice }}
+                    </v-responsive>
+                </v-col>
+
+                <v-col cols="12">
+                    <v-btn
+                        color="primary"
+                        large
+                        width="100%"
+                        :loading="buttonLoading"
+                        @click="checkoutClick"
+                    >
+                        Checkout
+                    </v-btn>
+                </v-col>
+            </v-row>
         </v-navigation-drawer>
 
         <v-snackbar v-model="alertShowL" color="success" bottom timeout="5000">
@@ -138,7 +239,8 @@ export default {
     name: "App",
     data: () => ({
         drawer: null,
-        alertShowL: false
+        alertShowL: false,
+        buttonLoading: false
     }),
     computed: {
         alertShow: function() {
@@ -146,6 +248,17 @@ export default {
         },
         alertMsg: function() {
             return this.$store.state.alert.msg;
+        },
+        cart: function() {
+            return this.$store.state.cart;
+        },
+        totalPrice: function() {
+            let price = 0;
+            this.cart.forEach(element => {
+                price += Number(element.price.slice(1));
+            });
+
+            return price;
         }
     },
     watch: {
@@ -156,6 +269,12 @@ export default {
             if (!newVal) {
                 this.$store.actions.hideAlert();
             }
+        }
+    },
+    methods: {
+        checkoutClick: function() {
+            this.buttonLoading = true;
+            setTimeout(() => (this.buttonLoading = false), 2000);
         }
     }
 };

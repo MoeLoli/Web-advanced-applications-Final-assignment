@@ -2,13 +2,13 @@
  * @Author: Jin
  * @Date: 2020-11-19 17:05:45
  * @LastEditors: Jin
- * @LastEditTime: 2020-11-21 12:25:38
+ * @LastEditTime: 2020-11-21 18:11:49
  * @FilePath: /final-assignment/src/components/commodityCard/commodityCard.vue.js
  */
 export default {
     name: "CommodityCard",
     props: {
-        loading:{
+        loading: {
             type: Boolean,
             default: true
         },
@@ -24,6 +24,9 @@ export default {
             })
         }
     },
+    data: () => ({
+        addCartButtonLoading: false,
+    }),
     computed: {
         name: function() {
             return this.config.name || "Test";
@@ -65,8 +68,19 @@ export default {
         }
     },
     methods: {
-        addCart: function () {
-            this.$store.actions.showAlert("Added to cart!");
+        addCart: function() {
+            this.addCartButtonLoading = true;
+            this.$store.actions.addCart({
+                imgUrl: this.imgUrl,
+                name: this.name,
+                price: this.price,
+                type: "imgUrl"
+            });
+
+            setTimeout(() => {
+                this.$store.actions.showAlert("Added to cart!");
+                this.addCartButtonLoading = false;
+            }, 2000)
         }
     }
 };

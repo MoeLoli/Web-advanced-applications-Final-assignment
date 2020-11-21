@@ -2,7 +2,7 @@
  * @Author: Jin
  * @Date: 2020-11-19 15:55:47
  * @LastEditors: Jin
- * @LastEditTime: 2020-11-21 13:33:54
+ * @LastEditTime: 2020-11-21 17:13:11
  * @FilePath: /final-assignment/src/views/detail/Detail.vue
 -->
 <template>
@@ -76,7 +76,7 @@
 
             <v-col cols="12" md="4" xl="3">
                 <div class="product-content">
-                    <h1 class="text-h5 text-lg-h4 mb-1">Multiverse</h1>
+                    <h1 class="text-h5 text-lg-h4 mb-1">Mirages</h1>
 
                     <div class="mb-2">
                         <div class="product-price d-flex">
@@ -104,7 +104,7 @@
                         </div>
                         <div>
                             Vendor:
-                            <span class="font-weight-bold">Vuetify</span>
+                            <span class="font-weight-bold">7</span>
                         </div>
                     </div>
 

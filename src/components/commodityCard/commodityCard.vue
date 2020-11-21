@@ -2,7 +2,7 @@
  * @Author: Jin
  * @Date: 2020-11-19 17:05:15
  * @LastEditors: Jin
- * @LastEditTime: 2020-11-21 12:25:57
+ * @LastEditTime: 2020-11-21 18:10:28
  * @FilePath: /final-assignment/src/components/commodityCard/commodityCard.vue
 -->
 <template>
@@ -14,7 +14,7 @@
                     :to="{ name: 'Detail', params: { name: name } }"
                     class="d-flex align-center"
                 >
-                    <v-img height="240" :src="imgUrl"> </v-img>
+                    <v-img height="240" :src="imgUrl" style="border-radius: 4px;"> </v-img>
                 </router-link>
                 <router-link
                     :to="{ name: 'Detail', params: { name: name } }"
@@ -74,6 +74,7 @@
                         width="44"
                         min-width="unset"
                         @click="addCart"
+                        :loading="addCartButtonLoading"
                     >
                         <v-icon>mdi-cart-plus</v-icon>
                     </v-btn>
