@@ -2,7 +2,7 @@
  * @Author: Jin
  * @Date: 2020-11-19 16:33:40
  * @LastEditors: Jin
- * @LastEditTime: 2020-11-20 21:43:34
+ * @LastEditTime: 2020-11-21 12:28:07
  * @FilePath: /final-assignment/src/views/home/Home.vue.js
  */
 import commodityCardComponent from "@/components/commodityCard/commodityCard.vue";
@@ -13,6 +13,7 @@ export default {
         commodityCardComponent
     },
     data: () => ({
+        productLoading: true,
         items: [
             {
                 src: "https://s3.ax1x.com/2020/11/20/DlEUeS.png"
@@ -53,5 +54,8 @@ export default {
                 price: "17.99"
             }
         ]
-    })
+    }),
+    mounted: function () {
+        setTimeout(() => (this.productLoading = false), 3000);
+    }
 };

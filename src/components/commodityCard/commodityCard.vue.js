@@ -2,12 +2,16 @@
  * @Author: Jin
  * @Date: 2020-11-19 17:05:45
  * @LastEditors: Jin
- * @LastEditTime: 2020-11-20 22:43:01
+ * @LastEditTime: 2020-11-21 12:25:38
  * @FilePath: /final-assignment/src/components/commodityCard/commodityCard.vue.js
  */
 export default {
     name: "CommodityCard",
     props: {
+        loading:{
+            type: Boolean,
+            default: true
+        },
         config: {
             type: Object,
             default: () => ({

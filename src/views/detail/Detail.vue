@@ -2,7 +2,7 @@
  * @Author: Jin
  * @Date: 2020-11-19 15:55:47
  * @LastEditors: Jin
- * @LastEditTime: 2020-11-19 19:42:34
+ * @LastEditTime: 2020-11-21 13:10:04
  * @FilePath: /final-assignment/src/views/detail/Detail.vue
 -->
 <template>
@@ -33,10 +33,28 @@
                                 <img
                                     width="auto"
                                     height="auto"
-                                    src="https://cdn.shopify.com/s/files/1/2695/0984/products/adminpro-vuetify-img-5.jpg?v=1603125224"
+                                    :src="src"
                                     class="image-magnifier__img rounded"
                                     style="max-width: 100%; max-height: 474px;"
+                                    @mouseenter="handleOver"
+                                    @mousemove="handleMove"
+                                    @mouseleave="handleOut"
+                                    ref="img"
                                 />
+                                <div
+                                    class="image-magnifier__mask"
+                                    :class="maskClass"
+                                    :style="maskStyle"
+                                    ref="mask"
+                                ></div>
+                                <div
+                                    class="image-magnifier__zoom elevation-4 rounded"
+                                    :class="zoomClass"
+                                    :style="zoomStyle"
+                                    v-show="zoomShow"
+                                >
+                                    <img :src="zoomSrc" :style="zoomImgStyle" />
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -45,7 +63,7 @@
 
             <v-col cols="12" md="4" xl="3">
                 <div class="product-content">
-                    <h1 class="text-h5 text-lg-h4 mb-1">Flairo Theme PRO</h1>
+                    <h1 class="text-h5 text-lg-h4 mb-1">Multiverse</h1>
 
                     <div class="mb-2">
                         <div class="product-price d-flex">
@@ -86,17 +104,25 @@
                                 color="#0096c7"
                                 hide-details
                             >
+                                <template #selection="{ item }">
+                                    {{ item.text.split("|")[0] }}
+                                </template>
+
                                 <template #item="{ item }">
                                     <v-list light>
                                         <div
                                             class="d-flex flex-column mt-1 flex-grow-1"
-                                            style="max-width: 400px;"
+                                            style="max-width: 400px;min-height: 50px"
                                         >
                                             <div
                                                 class="d-flex align-center flex-grow-1"
                                             >
                                                 <div class="font-weight-bold">
-                                                    {{ item.text }}
+                                                    {{
+                                                        splitSelectItem(
+                                                            item.text
+                                                        ).type
+                                                    }}
                                                 </div>
                                                 <div class="spacer"></div>
                                                 <div
@@ -108,23 +134,35 @@
                                                         <span
                                                             class="product-price body-2"
                                                             style="margin-top: 5px; margin-right: 1px;"
-                                                            >$</span
+                                                            >{{
+                                                                splitSelectItem(
+                                                                    item.text
+                                                                ).price.cur
+                                                            }}</span
                                                         ><span
                                                             class="product-price font-weight-bold text-h5"
-                                                            >69</span
+                                                            >{{
+                                                                splitSelectItem(
+                                                                    item.text
+                                                                ).price.price[0]
+                                                            }}</span
                                                         ><span
                                                             class="product-price body-2"
                                                             style="margin-left: 2px; margin-top: 5px;"
-                                                            >00</span
+                                                            >{{
+                                                                splitSelectItem(
+                                                                    item.text
+                                                                ).price.price[1]
+                                                            }}</span
                                                         >
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="body-2 mb-1">
-                                                May be used one time in an End
-                                                Product for Personal Use (an End
-                                                Product that does not charge End
-                                                Users).
+                                                {{
+                                                    splitSelectItem(item.text)
+                                                        .text
+                                                }}
                                             </div>
                                         </div>
                                     </v-list>
@@ -134,17 +172,32 @@
                     </div>
 
                     <div class="text-center mt-2">
-                        <v-btn text small width="100%">
+                        <v-btn
+                            text
+                            small
+                            width="100%"
+                            @click="$router.push({ name: 'Licenses' })"
+                        >
                             View License Details
                         </v-btn>
                     </div>
 
-                    <v-btn large width="100%" color="#f3cd70" class="mt-6 black--text">
+                    <v-btn
+                        large
+                        width="100%"
+                        color="#f3cd70"
+                        class="mt-6 black--text"
+                    >
                         <v-icon>mdi-cart-plus</v-icon>
                         <span class="flex-grow-1">Add to Cart</span>
                     </v-btn>
 
-                    <v-btn large width="100%" color="#f1ab57" class="mt-4 black--text">
+                    <v-btn
+                        large
+                        width="100%"
+                        color="#f1ab57"
+                        class="mt-4 black--text"
+                    >
                         <v-icon>mdi-cart-check</v-icon>
                         <span class="flex-grow-1">Buy Now</span>
                     </v-btn>
@@ -157,23 +210,63 @@
                 <v-card class="pa-6">
                     <div class="py-4 body-2 font-weight-medium">
                         <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmodtempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,quis nostrudexercitation ullamco laboris nisi ut aliquip ex ea commodoconsequat. Duis aute irure dolor in reprehenderit in voluptate velit essecillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat nonproident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                            Lorem ipsum dolor sit amet, consectetur adipisicing
+                            elit, sed do eiusmodtempor incididunt ut labore et
+                            dolore magna aliqua. Ut enim ad minim veniam,quis
+                            nostrudexercitation ullamco laboris nisi ut aliquip
+                            ex ea commodoconsequat. Duis aute irure dolor in
+                            reprehenderit in voluptate velit essecillum dolore
+                            eu fugiat nulla pariatur. Excepteur sint occaecat
+                            cupidatat nonproident, sunt in culpa qui officia
+                            deserunt mollit anim id est laborum.
                         </p>
 
                         <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmodtempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,quis nostrudexercitation ullamco laboris nisi ut aliquip ex ea commodoconsequat. Duis aute irure dolor in reprehenderit in voluptate velit essecillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat nonproident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                            Lorem ipsum dolor sit amet, consectetur adipisicing
+                            elit, sed do eiusmodtempor incididunt ut labore et
+                            dolore magna aliqua. Ut enim ad minim veniam,quis
+                            nostrudexercitation ullamco laboris nisi ut aliquip
+                            ex ea commodoconsequat. Duis aute irure dolor in
+                            reprehenderit in voluptate velit essecillum dolore
+                            eu fugiat nulla pariatur. Excepteur sint occaecat
+                            cupidatat nonproident, sunt in culpa qui officia
+                            deserunt mollit anim id est laborum.
                         </p>
 
                         <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmodtempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,quis nostrudexercitation ullamco laboris nisi ut aliquip ex ea commodoconsequat. Duis aute irure dolor in reprehenderit in voluptate velit essecillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat nonproident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                            Lorem ipsum dolor sit amet, consectetur adipisicing
+                            elit, sed do eiusmodtempor incididunt ut labore et
+                            dolore magna aliqua. Ut enim ad minim veniam,quis
+                            nostrudexercitation ullamco laboris nisi ut aliquip
+                            ex ea commodoconsequat. Duis aute irure dolor in
+                            reprehenderit in voluptate velit essecillum dolore
+                            eu fugiat nulla pariatur. Excepteur sint occaecat
+                            cupidatat nonproident, sunt in culpa qui officia
+                            deserunt mollit anim id est laborum.
                         </p>
 
                         <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmodtempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,quis nostrudexercitation ullamco laboris nisi ut aliquip ex ea commodoconsequat. Duis aute irure dolor in reprehenderit in voluptate velit essecillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat nonproident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                            Lorem ipsum dolor sit amet, consectetur adipisicing
+                            elit, sed do eiusmodtempor incididunt ut labore et
+                            dolore magna aliqua. Ut enim ad minim veniam,quis
+                            nostrudexercitation ullamco laboris nisi ut aliquip
+                            ex ea commodoconsequat. Duis aute irure dolor in
+                            reprehenderit in voluptate velit essecillum dolore
+                            eu fugiat nulla pariatur. Excepteur sint occaecat
+                            cupidatat nonproident, sunt in culpa qui officia
+                            deserunt mollit anim id est laborum.
                         </p>
 
                         <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmodtempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,quis nostrudexercitation ullamco laboris nisi ut aliquip ex ea commodoconsequat. Duis aute irure dolor in reprehenderit in voluptate velit essecillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat nonproident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                            Lorem ipsum dolor sit amet, consectetur adipisicing
+                            elit, sed do eiusmodtempor incididunt ut labore et
+                            dolore magna aliqua. Ut enim ad minim veniam,quis
+                            nostrudexercitation ullamco laboris nisi ut aliquip
+                            ex ea commodoconsequat. Duis aute irure dolor in
+                            reprehenderit in voluptate velit essecillum dolore
+                            eu fugiat nulla pariatur. Excepteur sint occaecat
+                            cupidatat nonproident, sunt in culpa qui officia
+                            deserunt mollit anim id est laborum.
                         </p>
                     </div>
                 </v-card>

@@ -2,13 +2,14 @@
  * @Author: Jin
  * @Date: 2020-11-19 17:05:15
  * @LastEditors: Jin
- * @LastEditTime: 2020-11-20 22:05:24
+ * @LastEditTime: 2020-11-21 12:25:57
  * @FilePath: /final-assignment/src/components/commodityCard/commodityCard.vue
 -->
 <template>
     <v-col cols="12" sm="6" lg="4" xl="3">
         <div class="position-relative">
-            <v-card>
+            <v-skeleton-loader v-if="loading" type="image, article"></v-skeleton-loader>
+            <v-card v-else>
                 <router-link
                     :to="{ name: 'Detail', params: { name: name } }"
                     class="d-flex align-center"
@@ -95,8 +96,13 @@ export default {
     font-family: Roboto, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif !important;
 }
 
-.text-truncate {
-    color: #edf0f2!important;
-    caret-color: #edf0f2!important;
+.v-application.theme--dark .text-truncate {
+    color: #edf0f2;
+    caret-color: #edf0f2;
+}
+
+.v-application.theme--light .text-truncate {
+    color: #252525;
+    caret-color: #252525;
 }
 </style>
