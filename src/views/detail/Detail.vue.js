@@ -2,7 +2,7 @@
  * @Author: Jin
  * @Date: 2020-11-19 16:33:40
  * @LastEditors: Jin
- * @LastEditTime: 2020-11-21 13:10:28
+ * @LastEditTime: 2020-11-21 13:33:22
  * @FilePath: /final-assignment/src/views/detail/Detail.vue.js
  */
 export default {
@@ -27,10 +27,8 @@ export default {
             }
         ],
 
-        src:
-            "https://cdn.shopify.com/s/files/1/2695/0984/products/adminpro-vuetify-img-5.jpg?v=1603125224",
-        zoomSrc:
-            "https://cdn.shopify.com/s/files/1/2695/0984/products/adminpro-vuetify-img-5.jpg?v=1603125224",
+        src: "https://i.loli.net/2020/11/21/c27WjGz5lTfdAFx.png",
+        zoomSrc: "https://i.loli.net/2020/11/21/c27WjGz5lTfdAFx.png",
         zoomWidth: "467",
         zoomHeight: "610",
         zoomClass: {},

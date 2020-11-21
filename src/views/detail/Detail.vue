@@ -2,7 +2,7 @@
  * @Author: Jin
  * @Date: 2020-11-19 15:55:47
  * @LastEditors: Jin
- * @LastEditTime: 2020-11-21 13:10:04
+ * @LastEditTime: 2020-11-21 13:33:54
  * @FilePath: /final-assignment/src/views/detail/Detail.vue
 -->
 <template>
@@ -15,11 +15,24 @@
                             flat
                             link
                             class="d-inline-block d-md-block mb-md-3 ma-1 ma-md-0 overflow-hidden rounded transparent"
+                            @click="src='https://i.loli.net/2020/11/21/c27WjGz5lTfdAFx.png';zoomSrc='https://i.loli.net/2020/11/21/c27WjGz5lTfdAFx.png'"
                         >
                             <v-img
                                 height="48"
                                 max-width="48"
-                                src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
+                                src="https://i.loli.net/2020/11/21/c27WjGz5lTfdAFx.png"
+                            ></v-img>
+                        </v-card>
+                        <v-card
+                            flat
+                            link
+                            class="d-inline-block d-md-block mb-md-3 ma-1 ma-md-0 overflow-hidden rounded transparent"
+                            @click="src='https://i.loli.net/2020/11/21/aerHvKNxGwfFPyu.png';zoomSrc='https://i.loli.net/2020/11/21/aerHvKNxGwfFPyu.png'"
+                        >
+                            <v-img
+                                height="48"
+                                max-width="48"
+                                src="https://i.loli.net/2020/11/21/aerHvKNxGwfFPyu.png"
                             ></v-img>
                         </v-card>
                     </div>
